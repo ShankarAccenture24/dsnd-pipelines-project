@@ -1,4 +1,8 @@
-scikit-learn
 pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+nltk
 spacy
-notebook
+ipykernel
