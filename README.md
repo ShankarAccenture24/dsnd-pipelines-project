@@ -1,14 +1,20 @@
-# Fashion Recommendation Prediction using ML Pipeline
+# 👗 Fashion Recommendation Prediction using Machine Learning Pipeline
 
 ## 📌 Project Overview
 
-This project builds an end-to-end machine learning pipeline to predict whether a customer recommends a product based on:
+This project builds a **production-ready end-to-end machine learning pipeline** to predict whether a customer recommends a product based on review data.
 
-* Review Text (NLP)
-* Customer Age
-* Product Category Information
+At StyleSense (a women's clothing e-commerce platform), many reviews are missing recommendation labels. This model helps automatically infer those labels using existing structured and unstructured data.
 
-The goal is to automate recommendation prediction for missing labels in customer reviews.
+---
+
+## 🎯 Objective
+
+Predict the target variable:
+
+**Recommended IND**
+- `1` → Customer recommends the product  
+- `0` → Customer does not recommend the product  
 
 ---
 
@@ -16,158 +22,112 @@ The goal is to automate recommendation prediction for missing labels in customer
 
 Women's Clothing E-Commerce Reviews dataset.
 
-### Features Used:
+### 🔹 Features Used:
 
-* **Text Data**: Review Text
-* **Numerical Data**: Age, Positive Feedback Count
-* **Categorical Data**: Division Name, Department Name, Class Name
-* **Target**: Recommended IND (0 = No, 1 = Yes)
+- **Text Data (NLP)**:
+  - Review Text  
+
+- **Numerical Data**:
+  - Age  
+
+- **Categorical Data**:
+  - Division Name  
+  - Department Name  
+  - Class Name  
+
+- **Target Variable**:
+  - Recommended IND  
 
 ---
 
 ## ⚙️ Project Structure
 
-```
-fashion-recommendation-ml/
-│
-├── notebook.ipynb        # Main implementation
-├── model.pkl             # Saved trained model
-├── requirements.txt      # Dependencies
-├── README.md             # Project documentation
-└── data/
-    └── reviews.csv       # Dataset
-```
+
 
 ---
 
-## 🚀 Machine Learning Pipeline
+## 🧠 Machine Learning Pipeline
 
-The project uses a **Pipeline + ColumnTransformer** to handle all preprocessing and modeling steps:
+This project uses a **scikit-learn Pipeline with ColumnTransformer**, ensuring all preprocessing and modeling steps are unified.
 
-### 🔹 Text Processing
+### 🔹 Pipeline Flow
 
-* TF-IDF Vectorization
-* Stopword removal
-
-### 🔹 Numerical Processing
-
-* Standard Scaling
-
-### 🔹 Categorical Processing
-
-* One-Hot Encoding
-
-### 🔹 Model
-
-* Logistic Regression
+1. **Input Data**
+2. **Preprocessing (ColumnTransformer)**:
+   - Numerical → Imputation + Scaling  
+   - Categorical → Imputation + One-Hot Encoding  
+   - Text → TF-IDF Vectorization  
+3. **Model Training**:
+   - Logistic Regression  
+4. **Prediction Output**
 
 ---
 
-## 🔧 Hyperparameter Tuning
+## 🔧 Preprocessing Details
 
-Used **GridSearchCV** to optimize:
+### ✅ Numerical Features
+- Missing values handled using median imputation  
+- Standard scaling applied  
 
-* TF-IDF parameters (max_features, n-grams)
-* Model parameter (regularization strength)
+### ✅ Categorical Features
+- Missing values filled with most frequent category  
+- One-hot encoding applied  
+- Unknown categories handled safely  
+
+### ✅ Text Features (NLP)
+- TF-IDF vectorization  
+- Stopword removal  
+- N-gram feature extraction  
+
+---
+
+## 🔍 Hyperparameter Tuning
+
+Used **GridSearchCV** with cross-validation to optimize:
+
+- TF-IDF:
+  - `max_features`
+  - `ngram_range`
+- Logistic Regression:
+  - Regularization strength (`C`)
+
+✔ Ensures improved performance and generalization.
 
 ---
 
 ## 📈 Model Evaluation
 
-The model is evaluated using:
+The model is evaluated on **unseen test data**.
 
-* Accuracy
-* Precision
-* Recall
-* F1 Score
+### Metrics Used:
+- Accuracy  
+- Precision  
+- Recall  
+- F1-score  
 
-A confusion matrix and classification report are also generated.
+### Additional Analysis:
+- Confusion Matrix  
+- Classification Report  
+
+✔ Ensures proper evaluation without data leakage.
+
+---
+
+## 🚀 Key Highlights
+
+- ✅ End-to-end ML pipeline (no manual preprocessing)
+- ✅ Handles mixed data types (text + categorical + numerical)
+- ✅ NLP feature engineering using TF-IDF
+- ✅ Hyperparameter tuning with GridSearchCV
+- ✅ Clean, modular, and reproducible code
+- ✅ Pipeline supports both training and inference
 
 ---
 
 ## 💾 Model Saving & Inference
 
-The final trained pipeline is saved using:
+<!-- The trained pipeline is saved using:
 
-```
-joblib.dump(model, 'model.pkl')
-```
-
-The saved model can be loaded and used for predictions without additional preprocessing.
-
----
-
-## 🛠️ Installation & Setup
-
-### 1. Clone Repository
-
-```
-git clone <your-repo-link>
-cd fashion-recommendation-ml
-```
-
-### 2. Create Virtual Environment
-
-```
-python -m venv venv
-venv\Scripts\activate
-```
-
-### 3. Install Dependencies
-
-```
-pip install -r requirements.txt
-```
-
-### 4. Run Notebook
-
-```
-jupyter notebook
-```
-
----
-
-## 🧪 Testing
-
-Run all cells in `notebook.ipynb`:
-
-* Ensure pipeline trains successfully
-* Verify evaluation metrics output
-* Confirm model is saved as `model.pkl`
-
----
-
-## 🎯 Key Highlights
-
-* End-to-end ML pipeline (preprocessing + model)
-* Handles text, numerical, and categorical data together
-* Uses NLP techniques (TF-IDF)
-* Hyperparameter tuning with GridSearchCV
-* Production-ready model saving
-
----
-
-## 🧠 Future Improvements
-
-* Include **Title** as additional text feature
-* Add **sentiment analysis**
-* Use advanced models (XGBoost, LightGBM)
-* Deploy using FastAPI or Streamlit dashboard
-
----
-
-## 👤 Author
-
-Lagisetti Bhavani Shankar
-
-## Built With
-
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
-
-[License](LICENSE.txt)
+python
+import joblib
+joblib.dump(model, "model.pkl") -->
